@@ -18,6 +18,6 @@ open web https://localhost
 
 
 
-# Reference參考資料2
+# Reference參考資料
 
 - [cornerstoneTools-gh-pages](https://github.com/cornerstonejs/cornerstoneTools/tree/gh-pages)
