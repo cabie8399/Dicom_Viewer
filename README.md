@@ -5,3 +5,13 @@
 
 ![](./img/0001.jpg)
 
+
+# Dev
+
+```
+npm install
+npm run dev
+```
+
+open web https://localhost
+
