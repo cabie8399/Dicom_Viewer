@@ -1,0 +1,18 @@
+{
+    "name": "animage",
+    "version": "1.1.1.0224",
+    "type": "module",
+    "scripts": {
+        "dev": "cross-env APP_ENV=development node esbuild.js && node test/server.js",
+        "stage": "cross-env APP_ENV=staging node esbuild.js",
+        "build": "cross-env APP_ENV=production node esbuild.js"
+    },
+    "dependencies": {
+        "dotenv": "^16.0.0",
+        "esbuild": "^0.14.0",
+        "express": "^4.17.1"
+    },
+    "devDependencies": {
+        "cross-env": "^7.0.3"
+    }
+}
