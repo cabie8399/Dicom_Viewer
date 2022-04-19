@@ -1,12 +1,18 @@
+import cornerstone from 'cornerstone-core';
+import cornerstoneTools from 'cornerstone-tools';
+import cornerstoneMath from 'cornerstone-math';
+import Hammer from 'hammerjs';
+import dicomParser from 'dicom-parser';
+import cornerstoneWADOImageLoader from 'cornerstone-wado-image-loader';
+
+cornerstoneTools.external.cornerstone = cornerstone;
+cornerstoneTools.external.cornerstoneMath = cornerstoneMath;
+cornerstoneTools.external.Hammer = Hammer;
+cornerstoneWADOImageLoader.external.dicomParser = dicomParser;
 cornerstoneWADOImageLoader.external.cornerstone = cornerstone;
-// const url = 'data/2.dcm';
-// const imageId = `wadouri:${url}`;
-// const image = await cornerstone.loadAndCacheImage(imageId);
 
 const el = document.querySelector('.cornerstone-element');
 cornerstone.enable(el);
-// cornerstone.displayImage(el, image);
-// console.log('cornerstoneTools ===> ',cornerstoneTools);
 
 class Dicom {
     constructor() {
@@ -62,7 +68,8 @@ class Tool {
         const toolOption = {
             showSVGCursors: true,
         };
-        cornerstoneTools.init(toolOption);
+        // cornerstoneTools.init(toolOption);
+        cornerstoneTools.init();
 
         const cornerstoneOption = {
             renderer: 'webgl',

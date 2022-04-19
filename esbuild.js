@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import fs from 'fs';
 
 const isProd = process.env.APP_ENV === 'production';
+const isDev = process.env.APP_ENV === 'development';
 
 const buildHtml = (input, output) => {
     fs.copyFileSync(input, output);
@@ -32,6 +33,8 @@ build({
     minify: isProd,
     bundle: true,
     format: 'esm',
+    logLevel:'info',
+    watch: isDev,
     define: {
         'process.env.npm_package_version': JSON.stringify(process.env.npm_package_version),
         'env.API_BASE_URL': JSON.stringify(process.env.API_BASE_URL),
