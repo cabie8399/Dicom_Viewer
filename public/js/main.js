@@ -34415,7 +34415,30 @@ var require_cornerstoneWADOImageLoader_bundle_min = __commonJS({
   }
 });
 
-// src/js/main.js
+// src/js/util/router.js
+var Router = class {
+  constructor(root, routes) {
+    this.root = root;
+    this.routes = routes;
+    window.addEventListener("popstate", () => {
+      this.viewCurrentRoute();
+    });
+  }
+  viewRoute(path) {
+    const matchRoute = this.routes.find((route) => route.path === path);
+    if (!matchRoute) {
+      this.root.innerHTML = String.raw`<h1>這裡是404</h1>`;
+      return;
+    }
+    matchRoute.html;
+  }
+  viewCurrentRoute() {
+    const { pathname } = window.location;
+    this.viewRoute(pathname);
+  }
+};
+
+// src/js/page/viewer.js
 var import_cornerstone_core = __toESM(require_cornerstone(), 1);
 var import_cornerstone_tools = __toESM(require_cornerstoneTools(), 1);
 var import_cornerstone_math = __toESM(require_cornerstoneMath_min(), 1);
@@ -34427,6 +34450,36 @@ import_cornerstone_tools.default.external.cornerstoneMath = import_cornerstone_m
 import_cornerstone_tools.default.external.Hammer = import_hammerjs.default;
 import_cornerstone_wado_image_loader.default.external.dicomParser = import_dicom_parser.default;
 import_cornerstone_wado_image_loader.default.external.cornerstone = import_cornerstone_core.default;
+var rootEl = document.querySelector(".root");
+rootEl.innerHTML = String.raw`
+    <div class="header">
+        <div class="logo">
+            <a href="/">
+                <img src="img/logo.svg" alt="">  
+            </a>
+            <div class="logo-name">DICOM VIEWER</div>
+        </div>
+        
+        <div class="user">
+            <img  class="logo" src="img/user.svg" alt="">
+        </div>
+    </div>
+    <div class="viewer">
+        <div class="tool-bar">
+            <div class="tool length">length</div>
+            <div class="tool wwwc">wwwc</div>
+            <div class="tool reset">reset</div>
+            <!-- <div class="tool rotate">rotate</div> -->
+            <br><br><br><br>
+            <input type="range" class="slice-range" min="0" step="1" max="3">
+        </div>
+        <div class="cornerstone-element">
+            <div class="dicom-info">
+                <div class="sliceText">Image: </div>
+            </div>
+        </div>
+    </div>
+`;
 var el = document.querySelector(".cornerstone-element");
 import_cornerstone_core.default.enable(el);
 var Dicom = class {
@@ -34538,11 +34591,35 @@ var Tool = class {
     this.slideBar();
   }
 };
-function init() {
+function viewerInit() {
   Tool.init();
   Dicom.displayDicom();
 }
-init();
+
+// src/js/main.js
+window.cabieViewer = {};
+(function createRouter() {
+  const root = document.querySelector(".root");
+  const routes = [
+    {
+      path: "/",
+      html: viewerInit()
+    },
+    {
+      path: "/viewer",
+      html: viewerInit()
+    },
+    {
+      path: "/viewer/ss",
+      html: viewerInit()
+    }
+  ];
+  window.cabieViewer.router = new Router(root, routes);
+  ;
+})();
+(async function routing() {
+  window.cabieViewer.router.viewCurrentRoute();
+})();
 /*! Hammer.JS - v2.0.7 - 2016-04-22
  * http://hammerjs.github.io/
  *
