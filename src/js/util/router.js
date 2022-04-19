@@ -8,11 +8,6 @@ export default class Router {
         });
     }
 
-    // navigate(path, data = null) {
-    //     window.history.pushState(data, null, path);
-    //     this.viewRoute(path);
-    // };
-
     viewRoute(path) {
         const matchRoute = this.routes.find((route) => route.path === path);
 
